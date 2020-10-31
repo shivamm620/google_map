@@ -3,19 +3,25 @@
     <head>
         <title>Google Maps Store Locator</title>
         <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+        <link rel="stylesheet" href="style/style.css">
     </head>
     <body>
+        <div class="title">Store Locator</div>
+        <div class="search-container">
+            <div class="search">
+                <input id="zip-code-input" type="text" placeholder="Enter zip"/>
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        <div class="stores-list-container">
+            <div class="stores-list">
+                
+            </div>
+        </div>
     <div id="map"></div>
     </body>
-    <script>
-        function initMap(){
-    var sydney = {lat:-33.863276,lng:151.107977};
-    map = new google.maps.Map(document.getElementById('map'),{
-        center:sydney,
-        zoom:7,
-    });
-}
+    <script src="js/store-data.js"></script>
+    <script src="js/index.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR5pqStfFH32-ADh62atDBHjv4X-XgslE&libraries=places&callback=initMap">
     </script>
-     <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
-     </script>
 </html>
