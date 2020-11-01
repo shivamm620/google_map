@@ -11,10 +11,78 @@ function initMap(){
         zoom:11,
     });
     infoWindow = new google.maps.InfoWindow();
-    showStoreMarkers();
+    searchStores();
+}
+function clearLocations(){
+    infoWindow.close();
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    markers.length = 0;
 }
 
-function showStoreMarkers(){
+function setOnClickListener(){
+    var storeElements = document.querySelectorAll('.store-container');
+    storeElements.forEach(function(elem, index){
+        elem.addEventListener('click', function(){
+            new google.maps.event.trigger(markers[index], 'click');
+        })
+    })
+}
+
+function searchStores(){
+    var foundStores = [];
+    var zipCode = document.getElementById('zip-code-input').value;
+    if(zipCode){
+        for(var store of stores){
+            var postal = store['address']['postalCode'].substring(0, 5);
+            if(postal == zipCode){
+                foundStores.push(store);
+            }
+        }
+    } else {
+        foundStores = stores;
+    }
+    displayStore(foundStores);
+    clearLocations()
+    showStoreMarkers(foundStores);
+    setOnClickListener();
+}
+function displayStore(stores){
+    var storesHtml = '';
+    stores.forEach(function(store,index){
+        var address = store.addressLines;
+        var phone = store.phoneNumber;
+        storesHtml +=`
+        <div class="store-container">
+        <div class="store-info-container">
+            <div class="store-address">
+                <span>${address[0]}</span>
+                <span>${address[1]}</span>
+            </div>
+            <div class="store-phone-number">${phone}</div>
+        </div>
+        <div class="store-number-container">
+            <div class="store-number">
+                ${index+1}
+            </div>
+        </div>
+    </div>
+        `
+        
+    })
+    document.querySelector('.stores-list').innerHTML = storesHtml;
+    
+}
+function setOnClickListener(){
+    var storeElements = document.querySelectorAll('.store-container');
+    storeElements.forEach(function(elem, index){
+        elem.addEventListener('click', function(){
+            new google.maps.event.trigger(markers[index], 'click');
+        })
+    })
+}
+function showStoreMarkers(stores){
     var bounds = new google.maps.LatLngBounds();
     stores.forEach(function(store,index) {
        var latlng = new google.maps.LatLng(
