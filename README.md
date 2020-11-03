@@ -9,7 +9,12 @@ _________________
 ***This Website Can Find Store By Static File Or You can Replace It By Your Need and Data***
 ``` javascripte
   <script src="js/store-data.js"></script>
-
 ```
 You can replace it by your server data 
+Like
+```javascripte
+https://localhost:3000/data
+```
+### You can use it like Corona Map
+
 []()
